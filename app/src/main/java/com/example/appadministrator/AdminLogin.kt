@@ -34,13 +34,13 @@ class AdminLogin : AppCompatActivity() {
         val eTxtPassword: EditText = findViewById(R.id.textBoxPassword)
 
         val buttonLogin: Button = findViewById(R.id.buttonLogin)
-        //eventlisten
+        //eventListener
         buttonLogin.setOnClickListener {
-            var loginRequest: JSONObject = JSONObject()
-            var loginParams: JSONObject = JSONObject()
+            val loginRequest = JSONObject()
+            val loginParams = JSONObject()
             val userName: String = eTxtUserName.text.toString()
             val password: String = eTxtPassword.text.toString()
-            val role: String = "admin"
+            val role = "admin"
 
             loginParams.put("user_name", userName)
             loginParams.put("password", password)
@@ -60,20 +60,20 @@ class AdminLogin : AppCompatActivity() {
 class MyLoginWsClient(private val activity: Activity, uri: URI) : WsClient(uri){
 
     private val errorDisplay : TextView by lazy{
-        activity.findViewById<TextView>(R.id.errorDisplay)
+        activity.findViewById(R.id.errorDisplay)
     }
 
     override fun onMessage(message: String?) {
         super.onMessage(message)
         Log.i(javaClass.simpleName, "msg arrived")
         Log.i(javaClass.simpleName, "$message")
-        val wholeMsg: JSONObject = JSONObject(message)
-        val ResId: Int = wholeMsg.getInt("id")
+        val wholeMsg = JSONObject("$message")
+        val resId: Int = wholeMsg.getInt("id")
         val result: JSONObject = wholeMsg.getJSONObject("result")
         val status: String = result.getString("status")
 
         //if message is about login
-        if(ResId == AdminLogin.loginMsgId){
+        if(resId == AdminLogin.loginMsgId){
             if(status == "success"){
                 val token: String = result.getString("token")
                 val expire: String = result.getString("expire")
@@ -81,9 +81,9 @@ class MyLoginWsClient(private val activity: Activity, uri: URI) : WsClient(uri){
                 Log.i(javaClass.simpleName, "token: $token")
                 Log.i(javaClass.simpleName, "expires in $expire")
 
-                this.close(WsClient.NORMAL_CLOSURE)
+                this.close(NORMAL_CLOSURE)
                 activity.runOnUiThread{
-                    val intent: Intent = Intent(activity, Administrator::class.java)
+                    val intent = Intent(activity, Administrator::class.java)
                     activity.startActivity(intent)
                 }
 

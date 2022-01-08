@@ -93,6 +93,7 @@ open class WsClient(uri: URI) : WebSocketClient(uri) {
      */
     override fun onError(ex: Exception?) {
         Log.i(javaClass.simpleName, "error occurred")
+        Log.i(javaClass.simpleName, ex.toString())
         Log.i(javaClass.simpleName, "executing on ${Thread.currentThread()}")
     }
 
