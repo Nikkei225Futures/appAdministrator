@@ -5,8 +5,10 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import java.net.URI
 import org.json.*
 
@@ -27,12 +29,12 @@ class AdminLogin : AppCompatActivity() {
         super.onResume()
         client.connect()
 
-        //bottom footer event listeners
+        //edit text, name and password
         val eTxtUserName: EditText = findViewById(R.id.textBoxUserName)
         val eTxtPassword: EditText = findViewById(R.id.textBoxPassword)
 
-
         val buttonLogin: Button = findViewById(R.id.buttonLogin)
+        //eventlisten
         buttonLogin.setOnClickListener {
             var loginRequest: JSONObject = JSONObject()
             var loginParams: JSONObject = JSONObject()
@@ -57,8 +59,14 @@ class AdminLogin : AppCompatActivity() {
 
 class MyLoginWsClient(private val activity: Activity, uri: URI) : WsClient(uri){
 
+    private val errorDisplay : TextView by lazy{
+        activity.findViewById<TextView>(R.id.errorDisplay)
+    }
+
     override fun onMessage(message: String?) {
         super.onMessage(message)
+        Log.i(javaClass.simpleName, "msg arrived")
+        Log.i(javaClass.simpleName, "$message")
         val wholeMsg: JSONObject = JSONObject(message)
         val ResId: Int = wholeMsg.getInt("id")
         val result: JSONObject = wholeMsg.getJSONObject("result")
@@ -81,6 +89,7 @@ class MyLoginWsClient(private val activity: Activity, uri: URI) : WsClient(uri){
 
             }else if(status == "error"){
                 val reason: String = result.getString("reason")
+                errorDisplay.visibility = View.VISIBLE
                 Log.i(javaClass.simpleName, "login failed with reason $reason")
             }
         }
