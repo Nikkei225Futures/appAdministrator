@@ -8,7 +8,6 @@ import java.net.URI
 import java.util.*
 import kotlin.concurrent.schedule
 
-
 open class WsClient(uri: URI) : WebSocketClient(uri) {
     companion object{
         /**
