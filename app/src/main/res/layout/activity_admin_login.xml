@@ -37,7 +37,9 @@
             android:background="#efefef"
             android:ems="10"
             android:inputType="textPersonName"
-            android:hint="ユーザーネーム" />
+            android:hint="ユーザーネーム"
+            android:textColorHint="#777777"
+            android:textColor="#444444"/>
 
         <EditText
             android:id="@+id/textBoxPassword"
@@ -48,7 +50,9 @@
             android:baselineAligned="false"
             android:ems="10"
             android:inputType="textPassword"
-            android:hint="パスワード" />
+            android:hint="パスワード"
+            android:textColorHint="#777777"
+            android:textColor="#444444" />
 
         <Button
             android:id="@+id/buttonLogin"
