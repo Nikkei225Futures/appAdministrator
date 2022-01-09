@@ -21,11 +21,11 @@ class AdminAccountInfoChange : AppCompatActivity() {
         }
 
         buttonToSearchRestaurant.setOnClickListener{
-            TODO("not yet implemented")
+            //TODO("not yet implemented")
         }
 
         buttonToSearchUser.setOnClickListener {
-            TODO("not yet implemented")
+            //TODO("not yet implemented")
         }
 
         buttonToSetting.setOnClickListener {

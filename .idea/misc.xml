@@ -4,9 +4,12 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/AndroidStudioProjects/AppAdministrator/app/src/main/res/layout/activity_admin_account_info_change.xml" value="0.1702172096908939" />
-        <entry key="..\:/AndroidStudioProjects/AppAdministrator/app/src/main/res/layout/activity_admin_login.xml" value="0.1" />
+        <entry key="..\:/AndroidStudioProjects/AppAdministrator/app/src/main/res/layout/activity_admin_create_account.xml" value="0.23684210526315788" />
+        <entry key="..\:/AndroidStudioProjects/AppAdministrator/app/src/main/res/layout/activity_admin_login.xml" value="0.2" />
+        <entry key="..\:/AndroidStudioProjects/AppAdministrator/app/src/main/res/layout/activity_admin_register_account.xml" value="0.25427350427350426" />
         <entry key="..\:/AndroidStudioProjects/AppAdministrator/app/src/main/res/layout/activity_administrator.xml" value="0.2" />
         <entry key="..\:/AndroidStudioProjects/AppAdministrator/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/AndroidStudioProjects/AppAdministrator/app/src/main/res/layout/activity_show_result.xml" value="0.25427350427350426" />
       </map>
     </option>
   </component>

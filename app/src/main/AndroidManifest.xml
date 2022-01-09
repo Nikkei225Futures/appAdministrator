@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.appadministrator">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -10,24 +12,26 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppAdministrator">
         <activity
+            android:name=".ShowResult"
+            android:exported="false" />
+        <activity
+            android:name=".AdminRegisterAccount"
+            android:exported="false" />
+        <activity
             android:name=".Administrator"
             android:exported="false" />
         <activity
             android:name=".AdminAccountInfoChange"
-            android:exported="false" />
-
-        <!--this is the first display to be shown-->
+            android:exported="false" /> <!-- this is the first display to be shown -->
         <activity
             android:name=".AdminLogin"
             android:exported="true">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
     </application>
-
-    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>

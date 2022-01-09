@@ -14,11 +14,11 @@ import org.json.*
 
 class AdminLogin : AppCompatActivity() {
     companion object{
-        const val loginMsgId: Int = 1
+        const val loginReqId: Int = 1
     }
 
     private val uri = WsClient.serverRemote
-    private val client = MyLoginWsClient(this, uri)
+    private var client = LoginWsClient(this, uri)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,6 +34,7 @@ class AdminLogin : AppCompatActivity() {
         val eTxtPassword: EditText = findViewById(R.id.textBoxPassword)
 
         val buttonLogin: Button = findViewById(R.id.buttonLogin)
+        val buttonCreateAcc: Button = findViewById(R.id.buttonCreateAccount)
         //eventListener
         buttonLogin.setOnClickListener {
             val loginRequest = JSONObject()
@@ -47,17 +48,28 @@ class AdminLogin : AppCompatActivity() {
             loginParams.put("role", role)
 
             loginRequest.put("jsonrpc", "2.0")
-            loginRequest.put("id", loginMsgId)
+            loginRequest.put("id", loginReqId)
             loginRequest.put("method", "login")
             loginRequest.put("params", loginParams)
             Log.i(javaClass.simpleName, "send login req")
             Log.i(javaClass.simpleName, loginRequest.toString())
             client.send(loginRequest.toString())
         }
+
+        buttonCreateAcc.setOnClickListener {
+            val intent = Intent(this@AdminLogin, AdminRegisterAccount::class.java)
+            startActivity(intent)
+        }
     }
+
+    override fun onRestart() {
+        super.onRestart()
+        client = LoginWsClient(this, uri)
+    }
+
 }
 
-class MyLoginWsClient(private val activity: Activity, uri: URI) : WsClient(uri){
+class LoginWsClient(private val activity: Activity, uri: URI) : WsClient(uri){
 
     private val errorDisplay : TextView by lazy{
         activity.findViewById(R.id.errorDisplay)
@@ -73,7 +85,7 @@ class MyLoginWsClient(private val activity: Activity, uri: URI) : WsClient(uri){
         val status: String = result.getString("status")
 
         //if message is about login
-        if(resId == AdminLogin.loginMsgId){
+        if(resId == AdminLogin.loginReqId){
             if(status == "success"){
                 val token: String = result.getString("token")
                 val expire: String = result.getString("expire")
@@ -88,9 +100,11 @@ class MyLoginWsClient(private val activity: Activity, uri: URI) : WsClient(uri){
                 }
 
             }else if(status == "error"){
-                val reason: String = result.getString("reason")
-                errorDisplay.visibility = View.VISIBLE
-                Log.i(javaClass.simpleName, "login failed with reason $reason")
+                activity.runOnUiThread{
+                    val reason: String = result.getString("reason")
+                    errorDisplay.visibility = View.VISIBLE
+                    Log.i(javaClass.simpleName, "login failed with reason $reason")
+                }
             }
         }
     }
