@@ -111,7 +111,7 @@ class RegisterWsClient(private val activity: Activity, uri: URI) : WsClient(uri)
                 val intent = Intent(activity, ShowResult::class.java)
                 val message = "アカウント登録が完了しました"
                 val transitionBtnMessage = "ログインページへ"
-                val isBeforeLogin = false
+                val isBeforeLogin = true
 
                 intent.putExtra("message", message)
                 intent.putExtra("transitionBtnMessage", transitionBtnMessage)
